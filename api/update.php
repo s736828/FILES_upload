@@ -18,11 +18,11 @@ if($_FILES['img']['error']==0){
     move_uploaded_file($_FILES['img']['tmp_name'],"../img/".$name);
 
     $sql="update `images` set
-         `img`='$name',`desc`='{$_POST['desc']}',`type`='{$_FILES['img']['type']}',`size`='{$_FILES['img']['size']}' where `id`={$_POST['id']})";
-                   
+         `img`='$name',`desc`='{$_POST['desc']}',`type`='{$_FILES['img']['type']}',`size`='{$_FILES['img']['size']}' where `id`='{$_POST['id']}'";
+    echo $sql;
     $old_image=$pdo->query("select `img` from `images` where id='{$_POST['id']}'")->fetchColumn();
+    
     unlink("../img/".$old_image);
-
     $pdo->exec($sql);
     // header("location:../upload.php");
 }
